@@ -22,8 +22,8 @@ formAgregar.addEventListener("submit", function (e) {
   const precio = parseFloat(document.getElementById("precio").value);
   const stock = parseInt(document.getElementById("stock").value);
 
-  if (!nombre || isNaN(precio) || isNaN(stock)) {
-    alert("⚠️ Por favor, ingresá datos válidos.");
+  if (!nombre || isNaN(precio) || isNaN(stock) || precio <= 0 || stock <= 0) {
+    alert("⚠️ Por favor, ingresá datos válidos.\n 🟢Intente nuevamente con Datos correctos,\n Sin Num negativos, ni Espacios.");
     return;
   }
 
@@ -40,7 +40,7 @@ formVenta.addEventListener("submit", function (e) {
   const producto = productos.find(p => p.nombre.toLowerCase() === nombreVenta);
 
   if (!producto) {
-    alert("❌ Producto no encontrado.");
+    alert("❌ Producto no encontrado.\n 🟢Corrobore que agregó este producto!\n 🟢Intente nuevamente con Datos correctos,\n Sin Num negativos, ni Espacios.");
     return;
   }
 
