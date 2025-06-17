@@ -57,7 +57,9 @@ formAgregar.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const nombre = document.getElementById("nombre").value.trim();
-  const precio = parseFloat(document.getElementById("precio").value);
+  const precioInput = document.getElementById("precio").value.trim();
+  const precioLimpio = precioInput.replace(/[.,]/g, "");
+  const precio = parseInt(precioLimpio);
   const stock = parseInt(document.getElementById("stock").value);
 
   if (!nombre || isNaN(precio) || isNaN(stock) || precio <= 0 || stock <= 0) {

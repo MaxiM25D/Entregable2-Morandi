@@ -14,7 +14,14 @@
       <h2 class="container">Agregar Producto</h2>
       <form id="form-agregar">
         <input type="text" id="nombre" placeholder="Nombre" required />
-        <input type="number" id="precio" placeholder="Precio" required />
+        <input
+          type="number"
+          id="precio"
+          placeholder="Precio -- Ej: 10000 sin (.) ni (,)"
+          min="1"
+          step="1"
+          required
+        />
         <input type="number" id="stock" placeholder="Stock" required />
         <button type="submit">Agregar</button>
       </form>
