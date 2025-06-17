@@ -43,6 +43,10 @@ button {
 }
 
 ul {
+  text-align:left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background: #2A3663;
   padding: 20px;
   border-radius: 5px;

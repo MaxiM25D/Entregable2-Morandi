@@ -1,5 +1,19 @@
 let productos = [];
 
+// Recuperar productos guardados al inicio
+function cargarDesdeLocalStorage() {
+  const guardado = localStorage.getItem("productos");
+  if (guardado) {
+    productos = JSON.parse(guardado);
+    mostrarStock();
+  }
+}
+
+// Guardar productos cada vez que se actualiza el array
+function guardarEnLocalStorage() {
+  localStorage.setItem("productos", JSON.stringify(productos));
+}
+
 const formAgregar = document.getElementById("form-agregar");
 const formVenta = document.getElementById("form-venta");
 const listaStock = document.getElementById("lista-stock");
@@ -28,8 +42,10 @@ formAgregar.addEventListener("submit", function (e) {
   }
 
   productos.push({ nombre, precio, stock });
+  
   formAgregar.reset(); // Limpia el formulario
   mostrarStock(); // Actualiza la lista
+  guardarEnLocalStorage();
 });
 
 // Registrar venta
@@ -46,6 +62,7 @@ formVenta.addEventListener("submit", function (e) {
 
   if (producto.stock > 0) {
     producto.stock--;
+    guardarEnLocalStorage();
     alert(`✅ Venta registrada. Stock restante: ${producto.stock}`);
   } else {
     alert("⚠️ El producto no tiene stock disponible.");
@@ -54,3 +71,5 @@ formVenta.addEventListener("submit", function (e) {
   formVenta.reset();
   mostrarStock();
 });
+//carga al iniciar la pagina//
+cargarDesdeLocalStorage();
