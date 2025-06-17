@@ -5,10 +5,12 @@ function cargarDesdeLocalStorage() {
   const guardado = localStorage.getItem("productos");
   if (guardado) {
     productos = JSON.parse(guardado);
-    mostrarStock();
   }
+  else {
+    productos = [];
+  }
+  mostrarStock();
 }
-
 // Guardar productos cada vez que se actualiza el array
 function guardarEnLocalStorage() {
   localStorage.setItem("productos", JSON.stringify(productos));
@@ -18,15 +20,37 @@ const formAgregar = document.getElementById("form-agregar");
 const formVenta = document.getElementById("form-venta");
 const listaStock = document.getElementById("lista-stock");
 
-// Función para actualizar el listado de productos
+// Mostrar stock//
 function mostrarStock() {
+  const btnLimpiar = document.getElementById("btn-limpiar");
   listaStock.innerHTML = ""; // Limpiar antes de volver a renderizar
+
+  if (productos.length === 0) {
+    listaStock.innerHTML = "<li class='no-stock'>😮 No hay productos cargados.</li>";
+    btnLimpiar.style.display = "none"; // Ocultar botón si no hay productos
+    return;
+  }
+
   productos.forEach((p, index) => {
     const li = document.createElement("li");
     li.textContent = `${index + 1}. Produc: ${p.nombre} - $${p.precio} | Stock: ${p.stock}`;
     listaStock.appendChild(li);
   });
+btnLimpiar.style.display = "inline-block"; // Mostrar botón si hay productos
 }
+
+//Borrar lista de stock//
+document.getElementById("btn-limpiar").addEventListener("click", () => {
+  const confirmacion = confirm("⚠️ ¿Estás seguro de que querés borrar todos los productos? ⚠️");
+
+  if (confirmacion) {
+    localStorage.removeItem("productos");
+    productos = [];
+    mostrarStock();
+  } else {
+    alert("❌ Operación cancelada. ❌");
+  }
+});
 
 // Agregar producto
 formAgregar.addEventListener("submit", function (e) {
